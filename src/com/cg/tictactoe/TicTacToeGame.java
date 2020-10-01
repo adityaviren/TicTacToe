@@ -17,8 +17,9 @@ public class TicTacToeGame {
 		boolean loop = true;
 		int index;
 		while (loop) {
-			System.out.println("enter the index where you want to place marker");
+			System.out.println("Enter the index where you want to place marker");
 			index = Integer.parseInt(scanner.nextLine());
+			if (index >0 && index<10) {
 			boolean check = isEmpty(index);
 			if (check == false)
 				System.out.println("position not empty");
@@ -27,6 +28,9 @@ public class TicTacToeGame {
 				System.out.println("position filled");
 				loop = false;
 			}
+			}
+			else 
+				System.out.println("Enter valid index from 1 to 9");
 		}
 		showBoard();
 		scanner.close();
@@ -52,6 +56,9 @@ public class TicTacToeGame {
 		return Character.toUpperCase(scanner.nextLine().charAt(0));
 	}
 
+	/**
+	 * Show the game board
+	 */
 	public static void showBoard() {
 		System.out.println(board[1] + " | " + board[2] + " | " + board[3]);
 		System.out.println("---------");
@@ -60,6 +67,9 @@ public class TicTacToeGame {
 		System.out.println(board[7] + " | " + board[8] + " | " + board[9]);
 	}
 
+	/**
+	 * returns if index is empty
+	 */
 	public static boolean isEmpty(int index) {
 		if (board[index] == ' ')
 			return false;
