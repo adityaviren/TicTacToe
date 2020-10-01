@@ -14,24 +14,7 @@ public class TicTacToeGame {
 		char computer_element = (player_element == 'X') ? 'O' : 'X';
 		System.out.println("Player element is " + player_element + " and Computer element is " + computer_element);
 		showBoard();
-		boolean loop = true;
-		int index;
-		while (loop) {
-			System.out.println("Enter the index where you want to place marker");
-			index = Integer.parseInt(scanner.nextLine());
-			if (index >0 && index<10) {
-			boolean check = isEmpty(index);
-			if (check == false)
-				System.out.println("position not empty");
-			else {
-				board[index] = player_element;
-				System.out.println("position filled");
-				loop = false;
-			}
-			}
-			else 
-				System.out.println("Enter valid index from 1 to 9");
-		}
+		board[userMove()]=player_element;
 		showBoard();
 		scanner.close();
 
@@ -71,10 +54,31 @@ public class TicTacToeGame {
 	 * returns if index is empty
 	 */
 	public static boolean isEmpty(int index) {
-		if (board[index] == ' ')
-			return false;
-		else
-			return true;
+		return board[index] != ' ';
+	}
+	
+	/**
+	 * User enters move
+	 */
+	public static int userMove() {
+		boolean loop = true;
+		int index=0;
+		while (loop) {
+			System.out.println("Enter the index where you want to place marker");
+			index = Integer.parseInt(scanner.nextLine());
+			if (index >0 && index<10) {
+			boolean check = isEmpty(index);
+			if (check == false)
+				System.out.println("position not empty");
+			else {
+				System.out.println("position filled");
+				loop = false;
+			}
+			}
+			else 
+				System.out.println("Enter valid index from 1 to 9");
+		}
+		return index;
 	}
 
 }
