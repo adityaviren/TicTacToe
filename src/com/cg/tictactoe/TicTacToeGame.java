@@ -10,7 +10,7 @@ public class TicTacToeGame {
 	/**
 	 * Created board
 	 */
-	public static char[] CreateBoard() {
+	public static char[] createBoard() {
 		char[] board = new char[10];
 		for (int iterator = 1; iterator < board.length; iterator++) {
 			board[iterator] = Character.MIN_VALUE;
