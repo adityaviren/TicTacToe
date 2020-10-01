@@ -14,7 +14,7 @@ public class TicTacToeGame {
 	public static char[] createBoard() {
 		char[] tictactoeboard = new char[10];
 		for (int iterator = 1; iterator < tictactoeboard.length; iterator++) {
-			tictactoeboard[iterator] = Character.MIN_VALUE;
+			tictactoeboard[iterator] = ' ';
 		}
 		return tictactoeboard;
 	}
@@ -66,9 +66,12 @@ public class TicTacToeGame {
 	 */
 	public static void computerMove(char[] board, ArrayList<Integer> valid_positions, char computer_element) {
 		Random random = new Random();
-		int position = (int) (random.nextInt(valid_positions.size()) + 1);
-		board[position] = computer_element;
-		valid_positions.remove(valid_positions.indexOf(position));
+		int position = (int) (random.nextInt(valid_positions.size()));
+		System.out.println(valid_positions.size());
+		System.out.println(position);
+		
+		board[valid_positions.get(position)] = computer_element;
+		valid_positions.remove(valid_positions.get(position));
 
 	}
 
@@ -94,19 +97,22 @@ public class TicTacToeGame {
 		}
 		Player player = firstTurn();
 		System.out.println(player + " gets the first turn");
-		for (int iterator = 1; iterator <= 3; iterator++) {
+		for (int iterator = 1; iterator <= 9; iterator++) {
 			if (player==player.user) {
 				userMove(board, valid_positions, player_element);
 				showBoard(board);
+				System.out.println(valid_positions);
 				computerMove(board, valid_positions, computer_element);
 				showBoard(board);
+				System.out.println(valid_positions);
 			} else {
 				computerMove(board, valid_positions, computer_element);
 				showBoard(board);
+				System.out.println(valid_positions);
 				userMove(board, valid_positions, player_element);
 				showBoard(board);
+				System.out.println(valid_positions);
 			}
-			System.out.println(valid_positions);
 		}
 		scanner.close();
 	}
