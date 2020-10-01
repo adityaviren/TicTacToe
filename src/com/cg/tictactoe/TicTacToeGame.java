@@ -3,17 +3,19 @@ package com.cg.tictactoe;
 import java.util.Scanner;
 
 public class TicTacToeGame {
-
+	static Scanner scanner= new Scanner(System.in);
+	
+	private static char[] board = new char[10];
+	
+	
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToeGame");
-		char board[] = createBoard();
+		char TicTacToeboard[] = createBoard();
 		char player_element=selectElement();
-		char computer_element;
-		if(player_element=='X')
-			computer_element='O';
-		else
-			computer_element='X';
+		scanner.close();
+		char computer_element = (player_element == 'X') ? 'O' : 'X';
 		System.out.println("Player element is " + player_element + " and Computer element is " + computer_element);
+		showBoard();
 		
 	}
 
@@ -21,7 +23,7 @@ public class TicTacToeGame {
 	 * Created board
 	 */
 	public static char[] createBoard() {
-		char[] board = new char[10];
+		
 		for (int iterator = 1; iterator < board.length; iterator++) {
 			board[iterator] = Character.MIN_VALUE;
 		}
@@ -32,11 +34,23 @@ public class TicTacToeGame {
 	 * Select X or O for player
 	 */
 	public static char selectElement() {
-		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter X or O as your element");
-		char element = (sc.nextLine()).charAt(0);
-		element=Character.toUpperCase(element);
-		sc.close();
-		return element;
+		return Character.toUpperCase(scanner.nextLine().charAt(0));
 	}
+	
+	public static void showBoard() {
+		for(int line1 = 1; line1<4 ; line1++) {
+			System.out.print(board[line1]);
+		}
+		System.out.println();
+		for(int line2 = 4; line2<7 ; line2++) {
+			System.out.print(board[line2]);
+		}
+		System.out.println();
+		for(int line3 = 7; line3<10 ; line3++) {
+			System.out.print(board[line3]);
+		}
+		System.out.println();
+	}
+	
 }
