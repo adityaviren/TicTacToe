@@ -40,15 +40,15 @@ public class TicTacToeGame {
 	
 	public static void showBoard() {
 		for(int line1 = 1; line1<4 ; line1++) {
-			System.out.print(board[line1]);
+			System.out.print(board[line1] + " | ");
 		}
-		System.out.println();
+		System.out.println("\n--------------");
 		for(int line2 = 4; line2<7 ; line2++) {
-			System.out.print(board[line2]);
+			System.out.print(board[line2] + " | ");
 		}
-		System.out.println();
+		System.out.println("\n--------------");
 		for(int line3 = 7; line3<10 ; line3++) {
-			System.out.print(board[line3]);
+			System.out.print(board[line3] + " | ");
 		}
 		System.out.println();
 	}
