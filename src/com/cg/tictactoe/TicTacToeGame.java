@@ -6,7 +6,10 @@ public class TicTacToeGame {
 		System.out.println("Welcome to TicTacToeGame");
 		char board[] =CreateBoard();
 	}
-	//Creating the board
+	
+	/**
+	 * Created board
+	 */
 	public static char[] CreateBoard() {
 		char[] board = new char[10];
 		for (int iterator = 1; iterator < board.length; iterator++) {
