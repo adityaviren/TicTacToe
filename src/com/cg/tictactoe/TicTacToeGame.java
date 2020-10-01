@@ -35,6 +35,8 @@ public class TicTacToeGame {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter X or O as your element");
 		char element = (sc.nextLine()).charAt(0);
+		element=Character.toUpperCase(element);
+		System.out.println(element);
 		sc.close();
 		return element;
 	}
