@@ -64,40 +64,59 @@ public class TicTacToeGame {
 	/**
 	 * computer makes move
 	 */
-	public static void computerMove(char[] board, ArrayList<Integer> valid_positions, char computer_element, char player_element) {
-		boolean check=false;
-		//checking if a move gets win
-		for(int iterator = 0; iterator <valid_positions.size();iterator++) {
+	public static void computerMove(char[] board, ArrayList<Integer> valid_positions, char computer_element,
+			char player_element) {
+		boolean check = false;
+		// checking if a move gets win
+		for (int iterator = 0; iterator < valid_positions.size(); iterator++) {
 			board[valid_positions.get(iterator)] = computer_element;
-			if(isWinner(board,computer_element)) {
+			if (isWinner(board, computer_element)) {
 				valid_positions.remove(iterator);
-				check=true;
+				check = true;
 				break;
-			}
-			else
+			} else
 				board[valid_positions.get(iterator)] = ' ';
 		}
-		//checking if opponent gets a winning move
-		if(check==false) {
-		for(int iterator = 0; iterator <valid_positions.size();iterator++) {
-			board[valid_positions.get(iterator)] = player_element;
-			if(isWinner(board,player_element)) {
-				board[valid_positions.get(iterator)] = computer_element;
-				valid_positions.remove(iterator);
-				check=true;
-				break;
+		// checking if opponent gets a winning move
+		if (check == false) {
+			for (int iterator = 0; iterator < valid_positions.size(); iterator++) {
+				board[valid_positions.get(iterator)] = player_element;
+				if (isWinner(board, player_element)) {
+					board[valid_positions.get(iterator)] = computer_element;
+					valid_positions.remove(iterator);
+					check = true;
+					break;
+				} else
+					board[valid_positions.get(iterator)] = ' ';
 			}
-			else
-				board[valid_positions.get(iterator)] = ' ';
 		}
-		}
-		if(check==false) {
+		
 		Random random = new Random();
-		int position = (int) (random.nextInt(valid_positions.size()));
-		board[valid_positions.get(position)] = computer_element;
-		valid_positions.remove(position);
+		// makes move to a random corner if available
+		if (check == false) {
+			ArrayList<Integer> valid_corners = new ArrayList<Integer>();
+			for (int iterator = 0; iterator < valid_positions.size(); iterator++) {
+				if (valid_positions.get(iterator) == 1 || valid_positions.get(iterator) == 3
+						|| valid_positions.get(iterator) == 7 || valid_positions.get(iterator) == 9) {
+					valid_corners.add(valid_positions.get(iterator));
+				}
+			}
+			if (valid_corners.size() > 0) {
+				System.out.println("enter in loop");
+				int position = (int) (random.nextInt(valid_corners.size()));
+				board[valid_corners.get(position)] = computer_element;
+				valid_positions.remove(valid_corners.get(position));
+				check = true;
+			}
 
-	}
+		}
+		if (check == false) {
+			System.out.println(valid_positions);
+			int position = (int) (random.nextInt(valid_positions.size()));
+			board[valid_positions.get(position)] = computer_element;
+			valid_positions.remove(position);
+
+		}
 	}
 
 	/**
@@ -134,8 +153,8 @@ public class TicTacToeGame {
 		String message = (toss == 1) ? "User" : "Computer";
 		System.out.println(message + " gets the first turn");
 
-		boolean is_winner = false,toggle;
-		toggle = (toss==1) ? true : false ;
+		boolean is_winner = false, toggle;
+		toggle = (toss == 1) ? true : false;
 		int no_of_turns = 0;
 
 		while (valid_positions.size() > 0 && no_of_turns < 9) {
@@ -149,10 +168,8 @@ public class TicTacToeGame {
 				}
 				no_of_turns++;
 				toggle = !toggle;
-				if(no_of_turns<9)
-				System.out.println("turn change");
-			}
-			else {
+				
+			} else {
 				computerMove(board, valid_positions, computer_element, player_element);
 				showBoard(board);
 				is_winner = isWinner(board, computer_element);
@@ -161,12 +178,13 @@ public class TicTacToeGame {
 					break;
 				}
 				no_of_turns++;
-				toggle=!toggle;
-				if(no_of_turns<9)
-				System.out.println("turn change");
+				toggle = !toggle;
 			}
-			}
-		if(valid_positions.size()==0&&is_winner==false) {
+				if (no_of_turns < 9)
+					System.out.println("turn change");
+			
+		}
+		if (valid_positions.size() == 0 && is_winner == false) {
 			System.out.println("the game tied");
 		}
 		scanner.close();
