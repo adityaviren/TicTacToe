@@ -110,6 +110,15 @@ public class TicTacToeGame {
 			}
 
 		}
+		// takes mid slot if available
+		if(check==false) {
+			if(valid_positions.contains(5)) {
+				board[5]=computer_element;
+				valid_positions.remove(valid_positions.indexOf(5));
+				check=true;
+			}
+		}
+		
 		if (check == false) {
 			System.out.println(valid_positions);
 			int position = (int) (random.nextInt(valid_positions.size()));
