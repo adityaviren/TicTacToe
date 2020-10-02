@@ -149,52 +149,58 @@ public class TicTacToeGame {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToeGame");
-		char board[] = createBoard();
-		char player_element = selectElement();
-		char computer_element = (player_element == 'X') ? 'O' : 'X';
-		System.out.println("Player element is " + player_element + " and Computer element is " + computer_element);
-		ArrayList<Integer> valid_positions = new ArrayList<Integer>();
-		for (int iterator = 1; iterator <= 9; iterator++) {
-			valid_positions.add(iterator);
-		}
-		int toss = firstTurn();
-		String message = (toss == 1) ? "User" : "Computer";
-		System.out.println(message + " gets the first turn");
-
-		boolean is_winner = false, toggle;
-		toggle = (toss == 1) ? true : false;
-		int no_of_turns = 0;
-
-		while (valid_positions.size() > 0 && no_of_turns < 9) {
-			if (toggle) {
-				userMove(board, valid_positions, player_element);
-				showBoard(board);
-				is_winner = isWinner(board, player_element);
-				if (is_winner == true) {
-					System.out.println("PLAYER WON");
-					break;
-				}
-				no_of_turns++;
-				toggle = !toggle;
-
-			} else {
-				computerMove(board, valid_positions, computer_element, player_element);
-				showBoard(board);
-				is_winner = isWinner(board, computer_element);
-				if (is_winner == true) {
-					System.out.println("COMPUTER WON");
-					break;
-				}
-				no_of_turns++;
-				toggle = !toggle;
+		char game = 'Y';
+		while (game == 'Y') {
+			char board[] = createBoard();
+			char player_element = selectElement();
+			char computer_element = (player_element == 'X') ? 'O' : 'X';
+			System.out.println("Player element is " + player_element + " and Computer element is " + computer_element);
+			ArrayList<Integer> valid_positions = new ArrayList<Integer>();
+			for (int iterator = 1; iterator <= 9; iterator++) {
+				valid_positions.add(iterator);
 			}
-			if (no_of_turns < 9)
-				System.out.println("Turn change");
+			int toss = firstTurn();
+			String message = (toss == 1) ? "User" : "Computer";
+			System.out.println(message + " gets the first turn");
 
+			boolean is_winner = false, toggle;
+			toggle = (toss == 1) ? true : false;
+			int no_of_turns = 0;
+
+			while (valid_positions.size() > 0 && no_of_turns < 9) {
+				if (toggle) {
+					userMove(board, valid_positions, player_element);
+					showBoard(board);
+					is_winner = isWinner(board, player_element);
+					if (is_winner == true) {
+						System.out.println("PLAYER WON");
+						break;
+					}
+					no_of_turns++;
+					toggle = !toggle;
+
+				} else {
+					computerMove(board, valid_positions, computer_element, player_element);
+					showBoard(board);
+					is_winner = isWinner(board, computer_element);
+					if (is_winner == true) {
+						System.out.println("COMPUTER WON");
+						break;
+					}
+					no_of_turns++;
+					toggle = !toggle;
+				}
+				if (no_of_turns < 9)
+					System.out.println("Turn change");
+
+			}
+			if (valid_positions.size() == 0 && is_winner == false) {
+				System.out.println("THE GAME TIED");
+			}
+			System.out.println("Would you like to play another game ?(Y/N)");
+			game = Character.toUpperCase(scanner.nextLine().charAt(0));
 		}
-		if (valid_positions.size() == 0 && is_winner == false) {
-			System.out.println("THE GAME TIED");
-		}
+
 		scanner.close();
 	}
 
