@@ -90,7 +90,7 @@ public class TicTacToeGame {
 					board[valid_positions.get(iterator)] = ' ';
 			}
 		}
-		
+
 		Random random = new Random();
 		// makes move to a random corner if available
 		if (check == false) {
@@ -102,7 +102,6 @@ public class TicTacToeGame {
 				}
 			}
 			if (valid_corners.size() > 0) {
-				System.out.println("enter in loop");
 				int position = (int) (random.nextInt(valid_corners.size()));
 				board[valid_corners.get(position)] = computer_element;
 				valid_positions.remove(valid_corners.get(position));
@@ -111,14 +110,15 @@ public class TicTacToeGame {
 
 		}
 		// takes mid slot if available
-		if(check==false) {
-			if(valid_positions.contains(5)) {
-				board[5]=computer_element;
+		if (check == false) {
+			if (valid_positions.contains(5)) {
+				board[5] = computer_element;
 				valid_positions.remove(valid_positions.indexOf(5));
-				check=true;
+				check = true;
 			}
 		}
-		
+		// if no winning move, no opponent winning move, no available corners or mid,
+		// TAKE ANY SIDES
 		if (check == false) {
 			System.out.println(valid_positions);
 			int position = (int) (random.nextInt(valid_positions.size()));
@@ -153,7 +153,6 @@ public class TicTacToeGame {
 		char player_element = selectElement();
 		char computer_element = (player_element == 'X') ? 'O' : 'X';
 		System.out.println("Player element is " + player_element + " and Computer element is " + computer_element);
-		showBoard(board);
 		ArrayList<Integer> valid_positions = new ArrayList<Integer>();
 		for (int iterator = 1; iterator <= 9; iterator++) {
 			valid_positions.add(iterator);
@@ -172,29 +171,29 @@ public class TicTacToeGame {
 				showBoard(board);
 				is_winner = isWinner(board, player_element);
 				if (is_winner == true) {
-					System.out.println("player won");
+					System.out.println("PLAYER WON");
 					break;
 				}
 				no_of_turns++;
 				toggle = !toggle;
-				
+
 			} else {
 				computerMove(board, valid_positions, computer_element, player_element);
 				showBoard(board);
 				is_winner = isWinner(board, computer_element);
 				if (is_winner == true) {
-					System.out.println("computer won");
+					System.out.println("COMPUTER WON");
 					break;
 				}
 				no_of_turns++;
 				toggle = !toggle;
 			}
-				if (no_of_turns < 9)
-					System.out.println("turn change");
-			
+			if (no_of_turns < 9)
+				System.out.println("Turn change");
+
 		}
 		if (valid_positions.size() == 0 && is_winner == false) {
-			System.out.println("the game tied");
+			System.out.println("THE GAME TIED");
 		}
 		scanner.close();
 	}
