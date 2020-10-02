@@ -64,7 +64,7 @@ public class TicTacToeGame {
 	/**
 	 * computer makes move
 	 */
-	public static void computerMove(char[] board, ArrayList<Integer> valid_positions, char computer_element) {
+	public static void computerMove(char[] board, ArrayList<Integer> valid_positions, char computer_element, char player_element) {
 		boolean check=false;
 		//checking if a move gets win
 		for(int iterator = 0; iterator <valid_positions.size();iterator++) {
@@ -77,13 +77,23 @@ public class TicTacToeGame {
 			else
 				board[valid_positions.get(iterator)] = ' ';
 		}
-		System.out.println(valid_positions.size());
+		//checking if opponent gets a winning move
+		if(check==false) {
+		for(int iterator = 0; iterator <valid_positions.size();iterator++) {
+			board[valid_positions.get(iterator)] = player_element;
+			if(isWinner(board,player_element)) {
+				board[valid_positions.get(iterator)] = computer_element;
+				valid_positions.remove(iterator);
+				check=true;
+				break;
+			}
+			else
+				board[valid_positions.get(iterator)] = ' ';
+		}
+		}
 		if(check==false) {
 		Random random = new Random();
 		int position = (int) (random.nextInt(valid_positions.size()));
-		System.out.println(valid_positions.size());
-		System.out.println(position);
-
 		board[valid_positions.get(position)] = computer_element;
 		valid_positions.remove(position);
 
@@ -143,7 +153,7 @@ public class TicTacToeGame {
 				System.out.println("turn change");
 			}
 			else {
-				computerMove(board, valid_positions, computer_element);
+				computerMove(board, valid_positions, computer_element, player_element);
 				showBoard(board);
 				is_winner = isWinner(board, computer_element);
 				if (is_winner == true) {
