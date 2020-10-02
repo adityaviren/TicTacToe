@@ -65,6 +65,20 @@ public class TicTacToeGame {
 	 * computer makes move
 	 */
 	public static void computerMove(char[] board, ArrayList<Integer> valid_positions, char computer_element) {
+		boolean check=false;
+		//checking if a move gets win
+		for(int iterator = 0; iterator <valid_positions.size();iterator++) {
+			board[valid_positions.get(iterator)] = computer_element;
+			if(isWinner(board,computer_element)) {
+				valid_positions.remove(iterator);
+				check=true;
+				break;
+			}
+			else
+				board[valid_positions.get(iterator)] = ' ';
+		}
+		System.out.println(valid_positions.size());
+		if(check==false) {
 		Random random = new Random();
 		int position = (int) (random.nextInt(valid_positions.size()));
 		System.out.println(valid_positions.size());
@@ -73,6 +87,7 @@ public class TicTacToeGame {
 		board[valid_positions.get(position)] = computer_element;
 		valid_positions.remove(position);
 
+	}
 	}
 
 	/**
